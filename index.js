@@ -1,6 +1,6 @@
 const express = require("express");
-const ConnectMongo = require("./db");
-const Users = require('./model')
+const ConnectMongo = require("./DB"); // Updated to use DB.js
+const Users = require('./model');
 
 require("dotenv").config();
 
