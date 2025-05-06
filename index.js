@@ -5,18 +5,24 @@ const Users = require('./model')
 require("dotenv").config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Connect to MongoDB
+ConnectMongo();
+
+// Middleware and routes
+app.use(express.json());
 
 // Serve static files from public directory
 app.use(express.static('public'));
 
-// to read request body
-app.use(express.json())
-
-ConnectMongo();
-
+// Example route
+app.get('/', (req, res) => {
+    res.send('Student Registration System');
+});
 
 // getting user data
-app.get("/", async (req, res) => {
+app.get("/users", async (req, res) => {
     try {
         const data = await Users.find({});
         res.send(data);
@@ -26,7 +32,7 @@ app.get("/", async (req, res) => {
 });
 
 // posting user data
-app.post("/", async (req, res) => {
+app.post("/users", async (req, res) => {
     try {
         const payload = req.body;
 
@@ -39,6 +45,6 @@ app.post("/", async (req, res) => {
     }
 });
 
-app.listen(process.env.PORT, () => {
-    console.log(`server is up and running on port ${process.env.PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
